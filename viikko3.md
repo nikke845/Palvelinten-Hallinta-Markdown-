@@ -304,7 +304,135 @@ Tein tämän raportin Markdownina, käytin apuna [tätä ohjetta.](https://githu
 
 ## Näytä omalla git-varastollasi esimerkit komennoista ‘git log’, ‘git diff’ ja ‘git blame’. Selitä tulokset.
 
+### git log
 
+Komennolla pystyy katsomaan commit historiaa. Komennolla on paljon eri optioita joita voi katsoa vaikka [täältä.](https://git-scm.com/docs/git-log)
+
+	git log
+
+Tulos:
+
+```
+commit aade1feac999041e55ec80a5d55b9924ad0e35fa (HEAD -> master, origin/master, origin/HEAD)
+Author: nikke845 <nvuorivirta@gmail.com>
+Date:   Tue Apr 21 20:16:20 2020 +0300
+
+    e) Tee tyhmä muutos
+
+commit 0d97ebc6b79adaeef3d120f9e6aaf175fcd13e31
+Author: nikke845 <nvuorivirta@gmail.com>
+Date:   Tue Apr 21 20:07:06 2020 +0300
+
+    Markdown changes
+
+commit d5a1657a1f4d3b8d31005d89feb8ea140133d8b8
+Author: nikke845 <nvuorivirta@gmail.com>
+Date:   Tue Apr 21 20:00:12 2020 +0300
+
+    uusi moduuli valmis
+
+commit 8eb2ea241354e08e8ccf77af2a4d5a2c3fbe946a
+Author: nikke845 <42818108+nikke845@users.noreply.github.com>
+Date:   Tue Apr 21 19:56:45 2020 +0300
+
+    Initial commit
+```
+
+Komennon analysointi:
+
+```
+commit aade1feac999041e55ec80a5d55b9924ad0e35fa (HEAD -> master, origin/master, origin$
+Author: nikke845 <nvuorivirta@gmail.com>
+Date:   Tue Apr 21 20:16:20 2020 +0300
+
+    e) Tee tyhmä muutos
+```
+
+```
+commit id
+author and email
+timestamp
+
+commit message
+```
+
+### git diff
+
+Komennolla voi vertailla mm. committeja ja työhakemistoa. [Täältä](https://git-scm.com/docs/git-diff) löytyy lisää optioita.
+Verrataan kahta committia
+
+	git log --oneline
+
+Tulos:
+
+```
+aade1fe (HEAD -> master, origin/master, origin/HEAD) e) Tee tyhmä muutos
+0d97ebc Markdown changes
+d5a1657 uusi moduuli valmis
+8eb2ea2 Initial commit
+```
+
+Verrataan committia ´aade1fe´ committiin ´0d97ebc´:
+
+	git diff aade1fe 0d97ebc
+
+Tulos:
+
+```
+diff --git a/viikko3.md b/viikko3.md
+index 9791bb5..ae8778a 100644
+--- a/viikko3.md
++++ b/viikko3.md
+@@ -1,11 +1,11 @@
+-# Palvelinten hallinta viikko3
++#Palvelinten hallinta viikko3
+ 
+ Tätä dokumenttia saa kopioida ja muokata GNU General Public License (versio 2 tai uudempi) mukaisesti. [http://www.gnu.org/licenses/gpl-3.0.html](http://www.gnu.org/licenses/gpl-3.0.html)
+ Pohjana Tero Karvinen 2020: [Palvelinten Hallinta – Spring 2020](http://terokarvinen.com/2020/configuration-managment-systems-palvelinten-hallinta-ict4tn022-spring-2020/)
+ 
+ Tehtävän teko aloitettu 21.4.2020 noin klo 17.00.
+ 
+-## Uusi Salt moduuli
++##Uusi Salt moduuli
+ 
+ Moduuli on asennettu [tämän ohjeen mukaan.](https://itsfoss.com/disable-touchpad-when-mouse-used/)
+ 
+@@ -298,59 +298,13 @@ Molemmilla koneilla näyttää oikeudet samoilta (eli oikeilta).
+ Testataan lopuksi vielä "uudella" koneella touchpad-indicatorin ja sen asetuksien toimivuus liittämällä hiiri tietokoneeseen.
+ Toiminnot näyttävät toimivan odotetusti.
+ 
+-## MarkDown. Tee tämän tehtävän raportti MarkDownina.
++##MarkDown. Tee tämän tehtävän raportti MarkDownina.
+...
+```
+### git blame
+
+Komento näyttää tiedoston commit id:n ja commitin tekijän, sekä aikaleiman rivi riviltä. Komento toimii vain yksittäisille tiedostoille.
+
+Demo:
+
+	git blame viikko3.md
+
+Tulos:
+
+```
+aade1fea (nikke845          2020-04-21 20:16:20 +0300   1) # Palvelinten hallinta viikko3
+d5a1657a (nikke845          2020-04-21 20:00:12 +0300   2) 
+d5a1657a (nikke845          2020-04-21 20:00:12 +0300   3) Tätä dokumenttia saa kopioida ja muokata GNU General Public License (versio 2 tai uudempi) mukaisesti. [http://www.gnu.org/licenses/gpl-3.0.html](http://www.gnu.org/licenses/gpl-3.0.html)
+d5a1657a (nikke845          2020-04-21 20:00:12 +0300   4) Pohjana Tero Karvinen 2020: [Palvelinten Hallinta – Spring 2020](http://terokarvinen.com/2020/configuration-managment-systems-palvelinten-hallinta-ict4tn022-spring-2020/)
+d5a1657a (nikke845          2020-04-21 20:00:12 +0300   5) 
+d5a1657a (nikke845          2020-04-21 20:00:12 +0300   6) Tehtävän teko aloitettu 21.4.2020 noin klo 17.00.
+d5a1657a (nikke845          2020-04-21 20:00:12 +0300   7) 
+aade1fea (nikke845          2020-04-21 20:16:20 +0300   8) ## Uusi Salt moduuli
+```
+
+Komennon tuloksen analysointia:
+
+```
+aade1fea (nikke845          2020-04-21 20:16:20 +0300   1) # Palvelinte...
+
+commit id, commit author, timestamp, row number, row content
+```
 ## Tee tyhmä muutos gittiin, älä tee commit:tia. Tuhoa huonot muutokset.
 
 Tehdään viikko3.md tiedostoon muutos:
@@ -354,3 +482,5 @@ Your branch is up to date with 'origin/master'.
 
 nothing to commit, working tree clean
 ```
+
+Tehtävän teko lopetettu noin klo 21.00. Tehtävän aikana pidin muutaman lyhyen tauon.
