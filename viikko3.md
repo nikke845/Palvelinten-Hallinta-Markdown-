@@ -1,11 +1,11 @@
-#Palvelinten hallinta viikko3
+# Palvelinten hallinta viikko3
 
 Tätä dokumenttia saa kopioida ja muokata GNU General Public License (versio 2 tai uudempi) mukaisesti. [http://www.gnu.org/licenses/gpl-3.0.html](http://www.gnu.org/licenses/gpl-3.0.html)
 Pohjana Tero Karvinen 2020: [Palvelinten Hallinta – Spring 2020](http://terokarvinen.com/2020/configuration-managment-systems-palvelinten-hallinta-ict4tn022-spring-2020/)
 
 Tehtävän teko aloitettu 21.4.2020 noin klo 17.00.
 
-##Uusi Salt moduuli
+## Uusi Salt moduuli
 
 Moduuli on asennettu [tämän ohjeen mukaan.](https://itsfoss.com/disable-touchpad-when-mouse-used/)
 
@@ -298,13 +298,59 @@ Molemmilla koneilla näyttää oikeudet samoilta (eli oikeilta).
 Testataan lopuksi vielä "uudella" koneella touchpad-indicatorin ja sen asetuksien toimivuus liittämällä hiiri tietokoneeseen.
 Toiminnot näyttävät toimivan odotetusti.
 
-##MarkDown. Tee tämän tehtävän raportti MarkDownina.
+## MarkDown. Tee tämän tehtävän raportti MarkDownina.
 
 Tein tämän raportin Markdownina, käytin apuna [tätä ohjetta.](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
-##Näytä omalla git-varastollasi esimerkit komennoista ‘git log’, ‘git diff’ ja ‘git blame’. Selitä tulokset.
+## Näytä omalla git-varastollasi esimerkit komennoista ‘git log’, ‘git diff’ ja ‘git blame’. Selitä tulokset.
 
 
-##Tee tyhmä muutos gittiin, älä tee commit:tia. Tuhoa huonot muutokset.
+## Tee tyhmä muutos gittiin, älä tee commit:tia. Tuhoa huonot muutokset.
 
+Tehdään viikko3.md tiedostoon muutos:
 
+	nano viikko3.md
+
+Johon laitetaan seuraavaa:
+
+	Tyhmä muutos
+
+Katsotaan status:
+
+	git status
+
+Tulos:
+
+```
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   viikko3.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+Kumotaan muutokset (siirrytään viimeiseen committiin):
+
+	git reset --hard
+
+Tulos:
+
+	HEAD is now at 0d97ebc Markdown changes
+
+Katsotaan vielä status:
+
+	git status
+
+Tulos:
+
+```
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+```
