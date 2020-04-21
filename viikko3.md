@@ -407,7 +407,7 @@ index 9791bb5..ae8778a 100644
 ```
 ### git blame
 
-Komento näyttää tiedoston commit id:n ja commitin tekijän, sekä aikaleiman rivi riviltä. Komento toimii vain yksittäisille tiedostoille.
+Komento näyttää tiedoston commit id:n ja commitin tekijän, sekä aikaleiman rivi riviltä. Komento toimii vain yksittäisille tiedostoille. Lisää optioita löydät [täältä.](https://git-scm.com/docs/git-blame)
 
 Demo:
 
