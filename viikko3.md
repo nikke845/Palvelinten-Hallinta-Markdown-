@@ -127,7 +127,7 @@ Tulos:
 ```
 
 Testataan asentamalla toiselle koneelle (sama username).
-Ensin lisätään top.sls tiedostoon toiselle koneelle myös touchpad-indicator -tila.
+Ensin lisätään top.sls tiedostoon toiselle koneelle myös touchpad-indicator -tila:
 
 	sudoedit /srv/salt/top.sls
 
@@ -295,7 +295,7 @@ Tulos:
 	-rw-rw-r--  1 nikke nikke  664 huhti 21 18:49 touchpad-indicator.conf
 
 Molemmilla koneilla näyttää oikeudet samoilta (eli oikeilta).
-Testataan lopuksi vielä "uudella" koneella touchpad-indicatorin ja sen asetuksien toimivuus liittämällä hiiri tietokoneeseen.
+Testataan lopuksi vielä "uudella" koneella touchpad-indicatorin ja sen asetusten toimivuus liittämällä hiiri tietokoneeseen.
 Toiminnot näyttävät toimivan odotetusti.
 
 ## MarkDown. Tee tämän tehtävän raportti MarkDownina.
