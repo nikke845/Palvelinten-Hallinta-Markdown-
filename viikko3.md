@@ -47,7 +47,7 @@ Siirrytään palvelimelle, johon .conf tiedosto juuri siirrettiin:
 
 	ssh <käyttäjä>@<domain/ip>
 
-Varmistetaan, että tiedosto löytyy
+Varmistetaan, että tiedosto löytyy:
 
 	cat touchpad-indicator.conf
 
@@ -87,12 +87,12 @@ touchpad-indicator:
 Lisätään touchpad-indicator -tila top.sls tiedostoon ensiksi laitteelle, jolle se on jo asennettuna:
 
 ```
-	base:
-	  'hp1020g1':
-	    - touchpad-indicator/touchpad-indicator
+base:
+  'hp1020g1':
+    - touchpad-indicator/touchpad-indicator
 ```
 
-Testataan ajaa tila koneelle (huom touchpad-indicator on jo asennettuna, testataan vain meneekö komennot läpi)
+Testataan ajaa tila koneelle (huom. touchpad-indicator on jo asennettuna, testataan vain meneekö komennot läpi):
 
 	sudo salt '*' state.apply
 
@@ -126,7 +126,7 @@ Tulos:
      Changes:   
 ```
 
-Testataan asentamalla toiselle koneelle (sama username)
+Testataan asentamalla toiselle koneelle (sama username).
 Ensin lisätään top.sls tiedostoon toiselle koneelle myös touchpad-indicator -tila.
 
 	sudoedit /srv/salt/top.sls
@@ -300,7 +300,7 @@ Toiminnot näyttävät toimivan odotetusti.
 
 ## MarkDown. Tee tämän tehtävän raportti MarkDownina.
 
-Tein tämän raportin Markdownina, käytin apuna [tätä ohjetta.](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+Tein tämän raportin Markdownina, käytin apuna [tätä ohjetta.](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) Raportti löytyy myös [Githubista.](https://github.com/nikke845/Palvelinten-Hallinta-Markdown-/blob/master/viikko3.md)
 
 ## Näytä omalla git-varastollasi esimerkit komennoista ‘git log’, ‘git diff’ ja ‘git blame’. Selitä tulokset.
 
@@ -359,7 +359,7 @@ commit message
 ### git diff
 
 Komennolla voi vertailla mm. committeja ja työhakemistoa. [Täältä](https://git-scm.com/docs/git-diff) löytyy lisää optioita.
-Verrataan kahta committia
+Etsitään lyhennetyt commit id:t :
 
 	git log --oneline
 
