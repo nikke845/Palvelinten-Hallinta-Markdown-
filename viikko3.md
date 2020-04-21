@@ -30,25 +30,39 @@ Etsitään juuri muuttuneet tiedostot:
 Kokeilin myös hakea muualta conffi filuja, mutta en löytänyt esimerkiksi kaikkien käyttäjien yhteistä conffia.
 Seuraavaksi kokeilin muuttaa graafisesta käyttöliittymästä asetuksen päälle, joka poistaa touchpadin käytöstä, kun hiiri on kytkettynä koneeseen.
 Kokeillaan löytää muutos:
+
 	find /etc/ $HOME -printf '%T+ %p\n'|sort| grep touch
 
 Muutettu tiedosto sijaitsee siis käyttäjän kotihakemistossa.
+
 	2020-04-21+17:33:16.0351815510 /home/nikke/.config/touchpad-indicator/touchpad-indicator.conf
 
 Koska ohjelman .conf tiedosto on vain käyttäjän kotihakemistossa ja kaikki käyttäjät eivät luultavasti halua samaa asetustiedostoa teen tämän conffin vain yhtä käyttäjää ajatellen.
 Mennään .conf tiedoston sijaintiin ja siirretään se palvelimelle:
+
 	cd /home/nikke/.config/touchpad-indicator
 	rsync /home/nikke/.config/touchpad-indicator/touchpad-indicator.conf <käyttäjä>@<domain/ip>:/home/<käyttäjä>/
+
 Siirrytään palvelimelle, johon .conf tiedosto juuri siirrettiin:
+
 	ssh <käyttäjä>@<domain/ip>
+
 Varmistetaan, että tiedosto löytyy
+
 	cat touchpad-indicator.conf
+
 Tehdään touchpad-indicator -tilalle kansio:
+
 	sudo mkdir /srv/salt/touchpad-indicator
+
 Viedään kotihakemistossa oleva .conf tiedosto kansioon:
+
 	sudo cp /home/<user>/touchpad-indicator.conf /srv/salt/touchpad-indicator/
+
 Tehdään tilalle sls tiedosto:
+
 	sudoedit /srv/salt/touchpad-indicator/touchpad-indicator.sls
+
 Johon laitetaan seuraavaa:
 
 ```
@@ -71,11 +85,17 @@ touchpad-indicator:
 ```
 
 Lisätään touchpad-indicator -tila top.sls tiedostoon ensiksi laitteelle, jolle se on jo asennettuna:
+
+```
 	base:
 	  'hp1020g1':
 	    - touchpad-indicator/touchpad-indicator
+```
+
 Testataan ajaa tila koneelle (huom touchpad-indicator on jo asennettuna, testataan vain meneekö komennot läpi)
+
 	sudo salt '*' state.apply
+
 Tulos:	
 
 ```
@@ -108,7 +128,9 @@ Tulos:
 
 Testataan asentamalla toiselle koneelle (sama username)
 Ensin lisätään top.sls tiedostoon toiselle koneelle myös touchpad-indicator -tila.
+
 	sudoedit /srv/salt/top.sls
+
 Joka näyttää lopulta tältä:
 
 ```
@@ -120,7 +142,9 @@ base:
 ```
 
 Laitetaan tila käyttöön myös "uudelle" koneelle:
+
 	sudo salt '*' state.apply
+
 Tulos on virheellinen, koska hakemisto .conf tiedostolle puuttuu:
 
 ```
@@ -183,7 +207,9 @@ Tulos on virheellinen, koska hakemisto .conf tiedostolle puuttuu:
 ```
 
 Muokataan touchpad-indicator.sls tiedostoa lisäämällä makedirs -optio:
+
 	sudoedit /srv/salt/touchpad-indicator/touchpad-indicator.sls 
+
 Tiedosto näyttää nyt tältä:
 
 ```
@@ -210,7 +236,9 @@ touchpad-indicator.packages:
 ```
 
 Laitetaan muokattu tila uudestaan päälle:
+
 	sudo salt '*' state.apply
+
 Tuloksesta huomaa, että kaikki kolme statea onnistui:
 
 ```
@@ -251,14 +279,19 @@ Tuloksesta huomaa, että kaikki kolme statea onnistui:
 ```
 
 Tarkistetaan uudelta koneelta, että oikeudet sekä kansiossa, että kansion sisällä olevassa .conf tiedostossa ovat samat, kun käsin asennetussa:
+
 	cd /home/nikke/.config
 	ls -la|grep touch
+
 Tulos:
+
 	drwxrwxr-x  2 nikke nikke 4096 huhti 21 17:13 touchpad-indicator
 	
 	cd /home/nikke/.config/touchpad-indicator/
 	ls -la|grep touch
+
 Tulos:
+
 	-rw-rw-r--  1 nikke nikke  664 huhti 21 18:49 touchpad-indicator.conf
 
 Molemmilla koneilla näyttää oikeudet samoilta (eli oikeilta).
